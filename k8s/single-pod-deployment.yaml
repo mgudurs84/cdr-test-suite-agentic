@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cdr-app
+  labels:
+    app: cdr-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cdr-app
+  template:
+    metadata:
+      labels:
+        app: cdr-app
+    spec:
+      containers:
+      - name: cdr-app
+        image: us-central1-docker.pkg.dev/vertex-ai-demo-468112/cdr-app-repo/cdr-test-suite:v1
+        ports:
+        - containerPort: 3000
+          name: http
+        env:
+        - name: PORT
+          value: "3000"
+        - name: NODE_ENV
+          value: "production"
+        - name: GCS_BUCKET_NAME
+          valueFrom:
+            secretKeyRef:
+              name: cdr-env-secrets
+              key: GCS_BUCKET_NAME
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /secrets/gcs/key.json
+        - name: GOOGLE_CLOUD_PROJECT
+          valueFrom:
+            secretKeyRef:
+              name: api-keys
+              key: GOOGLE_CLOUD_PROJECT
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        volumeMounts:
+        - name: gcs-credentials
+          mountPath: /secrets/gcs
+          readOnly: true
+      volumes:
+      - name: gcs-credentials
+        secret:
+          secretName: gcs-credentials
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cdr-app-service
+  labels:
+    app: cdr-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: cdr-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+    name: http
