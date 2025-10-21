@@ -1,0 +1,32 @@
+Source_Field,Target_FHIR_Resource,FHIR_Attribute,Transformation_Rule,Data_Type,Required,Cardinality,data_type_mapping_details,vocab_mappings
+MSH.3,MessageHeader,source,Direct mapping,Reference,Yes,1..1,Use MSH.3 as source application,N/A
+MSH.4,MessageHeader,focus,Direct mapping,Reference,No,0..*,Map sending facility,N/A
+PID.3,Patient,identifier,Direct mapping,Identifier,Yes,0..*,Use system http://hospital.org/patient-ids,N/A
+PID.5,Patient,name,Parse HL7 name components,HumanName,Yes,0..*,family=PID.5.1 given=PID.5.2 prefix=PID.5.5,N/A
+PID.7,Patient,birthDate,Date conversion,date,No,0..1,Convert YYYYMMDD to YYYY-MM-DD format,N/A
+PID.8,Patient,gender,Map HL7 gender codes,code,No,0..1,M->male F->female U->unknown O->other,HL7 Table 0001
+PID.11,Patient,address,Parse address components,Address,No,0..*,line=PID.11.1 city=PID.11.3 state=PID.11.4 postalCode=PID.11.5,N/A
+PID.13,Patient,telecom,Phone number mapping,ContactPoint,No,0..*,system=phone value=PID.13.1,N/A
+PID.14,Patient,telecom,Phone number mapping,ContactPoint,No,0..*,system=phone use=work value=PID.14.1,N/A
+PID.16,Patient,maritalStatus,Marital status mapping,CodeableConcept,No,0..1,Map marital status codes,HL7 Table 0002
+PID.24,Patient,multipleBirthBoolean,Boolean conversion,boolean,No,0..1,Y->true N->false,N/A
+PV1.2,Encounter,class,Encounter class mapping,Coding,Yes,1..1,I->inpatient O->outpatient E->emergency,HL7 Table 0004
+PV1.3,Encounter,location,Location mapping,Reference,No,0..*,Map to Location resource,N/A
+PV1.7,Encounter,participant,Practitioner mapping,Reference,No,0..*,Map attending physician,N/A
+PV1.44,Encounter,period,Date/time conversion,Period,No,0..1,Admission date/time,N/A
+PV1.45,Encounter,period,Date/time conversion,Period,No,0..1,Discharge date/time,N/A
+OBR.4,DiagnosticReport,code,Code mapping,CodeableConcept,Yes,1..1,Map procedure codes,LOINC
+OBR.7,DiagnosticReport,effectiveDateTime,Date/time conversion,dateTime,No,0..1,Observation date/time,N/A
+OBR.16,DiagnosticReport,performer,Practitioner mapping,Reference,No,0..*,Ordering provider,N/A
+OBX.3,Observation,code,Code mapping,CodeableConcept,Yes,1..1,Map observation codes,LOINC
+OBX.5,Observation,valueQuantity,Value conversion,Quantity,No,0..1,Numeric values with units,UCUM
+OBX.6,Observation,valueQuantity,Unit mapping,Quantity,No,0..1,Map units of measure,UCUM
+OBX.11,Observation,status,Status mapping,code,Yes,1..1,F->final P->preliminary C->corrected,HL7 Table 0085
+AL1.3,AllergyIntolerance,code,Allergy code mapping,CodeableConcept,No,0..1,Map allergy codes,SNOMED CT
+AL1.4,AllergyIntolerance,criticality,Criticality mapping,code,No,0..1,Map criticality levels,HL7 Table 0128
+AL1.5,AllergyIntolerance,reaction,Reaction mapping,BackboneElement,No,0..*,Map allergic reactions,N/A
+PRB.3,Condition,code,Condition code mapping,CodeableConcept,Yes,1..1,Map diagnosis codes,ICD-10
+PRB.9,Condition,clinicalStatus,Clinical status mapping,CodeableConcept,No,0..1,Map condition status,HL7 FHIR
+RXO.1,MedicationRequest,medicationCodeableConcept,Medication mapping,CodeableConcept,Yes,1..1,Map medication codes,RxNorm
+RXO.2,MedicationRequest,dosageInstruction,Dosage mapping,Dosage,No,0..*,Map dosage instructions,N/A
+RXO.11,MedicationRequest,dispenseRequest,Dispense quantity,SimpleQuantity,No,0..1,Dispense quantity,N/A

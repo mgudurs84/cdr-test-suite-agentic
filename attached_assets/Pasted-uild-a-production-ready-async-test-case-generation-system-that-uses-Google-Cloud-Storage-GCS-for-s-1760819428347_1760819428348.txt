@@ -1,0 +1,722 @@
+uild a production-ready async test case generation system that uses Google Cloud Storage (GCS) for state management and job tracking. The system should work independently of FastAPI while maintaining the exact same GCS bucket structure and async workflow patterns for seamless integration when the real FastAPI service becomes available.
+
+Architecture Requirements
+Storage Architecture
+
+Storage Provider: Google Cloud Storage (GCS)
+Bucket Structure: Stateless job-based architecture
+State Management: All job state persisted in GCS, no database required
+Scalability: Supports horizontal scaling without sticky sessions
+
+GCS Bucket Structure
+gs://your-test-cases-bucket/
+  └── jobs/
+      └── [job-id]/  # UUID v4 format
+          ├── status.json       # Job status tracking
+          ├── metadata.json     # Request parameters and metadata
+          ├── input.csv         # Original CSV mapping file
+          ├── results.json      # Generated test cases
+          └── output.csv        # CSV export of test cases
+File Formats
+status.json
+json{
+  "status": "pending|processing|completed|failed",
+  "created_at": "2025-01-20T10:30:00Z",
+  "updated_at": "2025-01-20T10:30:45Z",
+  "error": "Error message if failed (optional)"
+}
+metadata.json
+json{
+  "params": {
+    "batch_number": "001",
+    "user_id": "external_client",
+    "csv_length": 1234
+  },
+  "created_at": "2025-01-20T10:30:00Z"
+}
+results.json
+json{
+  "TestCases": [...],
+  "StatisticalSummary": {...},
+  "github_url": "https://github.com/user/repo/blob/main/test-cases.csv",
+  "generated_at": "2025-01-20T10:30:45Z"
+}
+
+Tech Stack
+Backend
+
+Runtime: Node.js 18+ with TypeScript
+Framework: Express.js
+GCS SDK: @google-cloud/storage v7.0.0+
+UUID Generation: uuid for job ID generation
+Type Safety: Zod for request/response validation
+
+Frontend
+
+Framework: React 18 with TypeScript
+UI Library: Material UI (@mui/material) v7+
+State Management: React Query (@tanstack/react-query)
+Routing: Wouter for client-side routing
+
+
+Implementation Steps
+Phase 1: GCS Service Layer
+File: server/gcs-service.ts
+Requirements:
+
+Create a GCSService class that encapsulates all GCS operations
+Use environment variables for configuration:
+
+GCS_BUCKET_NAME: Target bucket name
+GCP_PROJECT_ID: Google Cloud project ID
+GOOGLE_APPLICATION_CREDENTIALS: Path to service account key
+
+
+
+Core Methods to Implement:
+typescriptclass GCSService {
+  // Configuration
+  constructor() // Initialize Storage client and bucket reference
+  
+  // Job Status Management
+  async readJobStatus(jobId: string): Promise<StatusData | null>
+  async writeJobStatus(jobId: string, status: string, error?: string): Promise<boolean>
+  
+  // CSV Operations
+  async readCSVContent(jobId: string): Promise<string | null>
+  async writeCSVContent(jobId: string, csvContent: string): Promise<boolean>
+  
+  // Metadata Operations
+  async writeMetadata(jobId: string, params: MetadataParams): Promise<boolean>
+  
+  // Results Operations
+  async writeResults(jobId: string, results: any): Promise<boolean>
+  async readResults(jobId: string): Promise<any | null>
+  
+  // CSV Output
+  async writeCSVOutput(jobId: string, csvContent: string): Promise<boolean>
+  generateCSV(testCases: any[]): string
+  
+  // Health & Monitoring
+  async checkConnection(): Promise<boolean>
+  async listJobs(): Promise<string[]>
+}
+Implementation Details:
+
+Error Handling: All methods must have try-catch blocks and return null/false on errors
+Logging: Console log all operations with emoji prefixes (✅ success, ❌ error, ⚠️ warning)
+Content Type: Set proper content types (application/json for JSON, text/csv for CSV)
+Cache Control: Set cacheControl: 'no-cache' in metadata for all uploads
+Atomic Operations: Each write should be atomic - either fully succeeds or fails
+Preserve Timestamps: When updating status, preserve the original created_at timestamp
+
+
+Phase 2: Mock Test Case Generator
+File: server/mock-testcase-generator.ts
+Requirements:
+
+Parse CSV mapping files intelligently
+Generate realistic FHIR test cases based on actual field names
+Create multiple test case types: FUNCTIONAL (positive/negative), EDGE, REGRESSION
+Integrate with GCS service for state management
+Generate comprehensive statistics
+
+Core Method Signature:
+typescriptasync generateTestCases(request: TestCaseRequest): Promise<{
+  jobId: string;
+  response: TestCaseResponse;
+}>
+Processing Flow:
+
+Generate UUID v4 job ID
+Write initial status to GCS: status = "pending"
+Write input CSV to GCS: jobs/{jobId}/input.csv
+Write metadata to GCS: jobs/{jobId}/metadata.json
+Update status to "processing"
+Parse CSV and generate test cases (simulate 2-3 second delay)
+Write results to GCS: jobs/{jobId}/results.json
+Generate and write CSV output: jobs/{jobId}/output.csv
+Update status to "completed"
+Return job ID and response
+
+Test Case Generation Rules:
+For each field in the CSV, generate:
+
+Functional Positive Test Case
+
+TestCaseID: B_{batch}_TC_{counter:03d}_functional_positive
+Description: Validate successful mapping
+Steps: Parse → Extract → Transform → Map → Validate
+Expected: FHIR resource created successfully
+
+
+Functional Negative Test Case
+
+TestCaseID: B_{batch}_TC_{counter:03d}_functional_negative
+Description: Validate error handling for invalid data
+Steps: Invalid input → Validation fails → Error logged
+Expected: System returns validation error
+
+
+Edge Case Test
+
+TestCaseID: B_{batch}_TC_{counter:03d}_edge_case
+Description: Handle missing/empty fields
+Logic: Required fields → negative test, Optional fields → positive test
+Expected: Proper handling based on field requirement
+
+
+Regression Test (every 3rd field)
+
+TestCaseID: B_{batch}_TC_{counter:03d}_regression_positive
+Description: Verify mapping consistency after updates
+Steps: Baseline → Update → Re-test → Compare
+Expected: No regression in mapping logic
+
+
+
+CSV Parsing Logic:
+
+Handle quoted fields with commas
+Extract columns: Source_Field, Target_FHIR_Resource, FHIR_Attribute, Transformation_Rule, Data_Type, Required
+Build meaningful test descriptions using actual field names
+Generate test steps that reference real transformation rules
+
+Statistical Summary:
+Calculate and return:
+
+TotalTestCases: Count of all generated tests
+TestCaseTypeBreakdown: Count by FUNCTIONAL/REGRESSION/EDGE
+SubtypeBreakdown: Count by POSITIVE/NEGATIVE
+MappingRows: Approximate original CSV row count
+UniqueAttributes: Approximate unique fields mapped
+
+
+Phase 3: Express API Routes
+File: server/routes.ts
+Required Endpoints:
+1. POST /api/ccda-gen-test-cases
+Purpose: Initiate async test case generation
+Request Body:
+typescript{
+  csv_mapping: string;    // Required, min 1 char
+  batch_number: string;   // Required, min 1 char
+  user_id: string;        // Required, min 1 char
+}
+Response (200 OK):
+typescript{
+  job_id: string;
+  message: string;
+  status_url: string;     // "/api/status/{job_id}"
+  results_url: string;    // "/api/results/{job_id}"
+}
+Implementation:
+
+Validate request using Zod schema
+Call mockTestCaseGenerator.generateTestCases()
+Return job_id immediately
+Background processing continues via GCS
+Log batch number and user ID
+
+Error Response (500):
+typescript{
+  error: string;
+  details: string;
+  timestamp: string;
+}
+
+2. GET /api/status/:jobId
+Purpose: Poll job status (called every 3 seconds by frontend)
+Path Parameters:
+
+jobId: UUID v4 string
+
+Response (200 OK):
+typescript{
+  status: "pending" | "processing" | "completed" | "failed";
+  created_at: string;
+  updated_at: string;
+  error?: string;
+}
+Implementation:
+
+Call gcsService.readJobStatus(jobId)
+Return status data from GCS
+No caching - always read fresh from GCS
+
+Error Response (404):
+typescript{
+  error: "Job not found";
+  job_id: string;
+}
+
+3. GET /api/results/:jobId
+Purpose: Retrieve completed test cases
+Path Parameters:
+
+jobId: UUID v4 string
+
+Response (200 OK):
+typescript{
+  test_cases: TestCase[];
+  github_url: string | null;
+  csv_download_url: string;  // "/api/download/{job_id}"
+}
+Implementation:
+
+Check job status first
+Return 400 if status is not "completed"
+Read results.json from GCS
+Format response with download URL
+
+Error Responses:
+
+404: Job not found
+400: Job not completed yet
+500: Failed to read results
+
+
+4. GET /api/download/:jobId
+Purpose: Download CSV file
+Path Parameters:
+
+jobId: UUID v4 string
+
+Response:
+
+Content-Type: text/csv
+Content-Disposition: attachment; filename=test-cases-{jobId}.csv
+Body: CSV content as string
+
+Implementation:
+
+Read output.csv from GCS
+Stream to response
+Set proper headers for download
+
+
+5. GET /api/health
+Purpose: Health check and integration status
+Response (200 OK):
+typescript{
+  status: "healthy";
+  timestamp: string;
+  service: string;
+  version: string;
+  integrations: {
+    vertexAI: boolean;
+    github: boolean;
+    gcs: boolean;
+  }
+}
+Implementation:
+
+Call gcsService.checkConnection() to verify GCS access
+Check GitHub service configuration
+Return integration status
+
+
+6. GET /api/jobs (Optional - for debugging)
+Purpose: List all jobs in GCS
+Response (200 OK):
+typescript{
+  jobs: string[];    // Array of job IDs
+  count: number;
+}
+Implementation:
+
+Call gcsService.listJobs()
+Return array of job IDs found in bucket
+
+
+Phase 4: Frontend Integration
+File: client/src/lib/api.ts
+Add New API Functions:
+typescript// Generate test cases (returns job_id immediately)
+export const generateTestCasesMock = async (
+  data: TestCaseRequest
+): Promise<{ job_id: string; status_url: string; results_url: string }> => {
+  const response = await apiRequest("POST", "/api/ccda-gen-test-cases", data);
+  return response.json();
+};
+
+// Poll job status
+export const pollJobStatus = async (jobId: string): Promise<{
+  status: string;
+  created_at: string;
+  updated_at: string;
+  error?: string;
+}> => {
+  const response = await apiRequest("GET", `/api/status/${jobId}`);
+  return response.json();
+};
+
+// Get results when completed
+export const getJobResults = async (jobId: string): Promise<{
+  test_cases: TestCase[];
+  github_url: string | null;
+  csv_download_url: string;
+}> => {
+  const response = await apiRequest("GET", `/api/results/${jobId}`);
+  return response.json();
+};
+
+File: client/src/pages/home.tsx
+Add Polling State Management:
+typescriptconst [jobId, setJobId] = useState<string | null>(null);
+const [pollingStatus, setPollingStatus] = useState<string>('idle');
+
+// Submit mutation - returns job_id
+const mutation = useMutation({
+  mutationFn: generateTestCasesMock,
+  onSuccess: (data) => {
+    setJobId(data.job_id);
+    setSnackbar({
+      open: true,
+      message: 'Job started! Tracking progress...',
+      severity: 'info',
+    });
+  },
+  onError: (error) => {
+    console.error('Error:', error);
+    setSnackbar({
+      open: true,
+      message: 'Failed to start job',
+      severity: 'error',
+    });
+  }
+});
+
+// Polling effect
+useEffect(() => {
+  if (!jobId) return;
+
+  const interval = setInterval(async () => {
+    try {
+      const statusData = await pollJobStatus(jobId);
+      setPollingStatus(statusData.status);
+      
+      if (statusData.status === 'completed') {
+        // Fetch results
+        const results = await getJobResults(jobId);
+        sessionStorage.setItem('fhir-test-results', JSON.stringify(results));
+        setLocation('/results');
+        clearInterval(interval);
+        
+        setSnackbar({
+          open: true,
+          message: 'Test cases generated successfully!',
+          severity: 'success',
+        });
+      } else if (statusData.status === 'failed') {
+        clearInterval(interval);
+        setSnackbar({
+          open: true,
+          message: `Job failed: ${statusData.error}`,
+          severity: 'error',
+        });
+      }
+    } catch (error) {
+      console.error('Polling error:', error);
+      clearInterval(interval);
+      setSnackbar({
+        open: true,
+        message: 'Failed to check job status',
+        severity: 'error',
+      });
+    }
+  }, 3000); // Poll every 3 seconds
+
+  return () => clearInterval(interval);
+}, [jobId, setLocation]);
+Update UI to Show Polling Status:
+typescript// In the Backdrop component, show current status
+{mutation.isPending || pollingStatus === 'processing' ? (
+  <Backdrop open={true}>
+    <Paper elevation={8} sx={{ p: 6, textAlign: 'center' }}>
+      <CircularProgress size={80} sx={{ mb: 3 }} />
+      <Typography variant="h5" gutterBottom>
+        {pollingStatus === 'pending' ? 'Job Queued...' : 
+         pollingStatus === 'processing' ? 'Generating Test Cases...' :
+         'Starting Job...'}
+      </Typography>
+      <Typography variant="body1" color="text.secondary">
+        Job ID: {jobId}
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        This may take 30-60 seconds
+      </Typography>
+    </Paper>
+  </Backdrop>
+) : null}
+
+Phase 5: Environment Setup
+File: .env
+bash# Node.js Server
+PORT=5000
+NODE_ENV=development
+
+# GCP Configuration
+GCP_PROJECT_ID=vertex-ai-demo-468112
+GCS_BUCKET_NAME=your-test-cases-bucket
+GOOGLE_APPLICATION_CREDENTIALS=./service-account-key.json
+
+# GitHub Integration (Optional)
+GITHUB_TOKEN=ghp_your_token_here
+
+Phase 6: GCS Bucket Setup
+Prerequisites:
+
+Google Cloud Project with billing enabled
+Service account with Storage Object Admin role
+Service account key JSON file downloaded
+
+Setup Commands:
+bash# Create bucket
+gcloud storage buckets create gs://your-test-cases-bucket \
+  --location=us-central1 \
+  --uniform-bucket-level-access
+
+# Grant permissions to service account
+gcloud storage buckets add-iam-policy-binding gs://your-test-cases-bucket \
+  --member="serviceAccount:YOUR_SERVICE_ACCOUNT@PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/storage.objectAdmin"
+
+# Set lifecycle policy (auto-delete after 7 days)
+cat > lifecycle.json << EOF
+{
+  "lifecycle": {
+    "rule": [
+      {
+        "action": {"type": "Delete"},
+        "condition": {
+          "age": 7,
+          "matchesPrefix": ["jobs/"]
+        }
+      }
+    ]
+  }
+}
+EOF
+
+gcloud storage buckets update gs://your-test-cases-bucket \
+  --lifecycle-file=lifecycle.json
+
+Testing Requirements
+Unit Tests
+GCS Service Tests:
+typescriptdescribe('GCSService', () => {
+  test('should write and read status correctly');
+  test('should handle missing files gracefully');
+  test('should preserve created_at timestamp on updates');
+  test('should generate valid CSV from test cases');
+  test('should list all jobs in bucket');
+});
+Mock Generator Tests:
+typescriptdescribe('MockTestCaseGenerator', () => {
+  test('should generate correct number of test cases');
+  test('should parse CSV fields correctly');
+  test('should create proper test case IDs');
+  test('should calculate statistics accurately');
+  test('should handle edge cases in CSV parsing');
+});
+Integration Tests
+API Endpoint Tests:
+typescriptdescribe('API Endpoints', () => {
+  test('POST /api/ccda-gen-test-cases returns job_id');
+  test('GET /api/status/:jobId returns correct status');
+  test('GET /api/results/:jobId returns test cases when completed');
+  test('GET /api/download/:jobId streams CSV file');
+  test('GET /api/health checks GCS connectivity');
+});
+Manual Testing Checklist
+
+ Upload CSV file through UI
+ Verify job_id returned immediately
+ Confirm status polling updates every 3 seconds
+ Check GCS bucket has all required files
+ Verify test cases display correctly on results page
+ Download CSV and verify format
+ Test with invalid CSV format
+ Test with missing job_id
+ Test concurrent job submissions
+ Verify cleanup policy works after 7 days
+
+
+Error Handling Requirements
+GCS Service Errors
+
+Network failures: Return null/false, log error
+Permission errors: Log detailed error, return null/false
+Invalid JSON: Catch parse errors, return null
+
+API Endpoint Errors
+
+400: Bad Request (validation failures)
+404: Not Found (job doesn't exist)
+500: Internal Server Error (unexpected failures)
+Always include error message and timestamp
+
+Frontend Error Handling
+
+Display user-friendly messages in Snackbar
+Retry logic for polling failures (max 3 retries)
+Clear error state when starting new job
+Log detailed errors to console for debugging
+
+
+Performance Considerations
+GCS Operations
+
+Use streaming for large CSV files (>1MB)
+Implement connection pooling
+Set reasonable timeouts (30s for uploads)
+Use concurrent reads when possible
+
+Polling Strategy
+
+Poll every 3 seconds during processing
+Stop polling on completion or failure
+Clear intervals on component unmount
+Maximum polling duration: 5 minutes
+
+Test Case Generation
+
+Simulate realistic processing time (2-3 seconds)
+Generate 3-4 test cases per CSV row
+Keep test descriptions concise (<200 chars)
+Limit test steps to 6-8 per case
+
+
+Security Requirements
+GCS Access
+
+Use service account with minimal permissions
+Never expose credentials in frontend
+Validate all job IDs are UUIDs
+Implement rate limiting on job creation
+
+Input Validation
+
+Validate CSV format and size (max 10MB)
+Sanitize all user inputs
+Validate batch_number format (alphanumeric)
+Validate user_id format
+
+CORS Configuration
+
+Allow requests from frontend domain only
+Include credentials in requests
+Set proper headers for CSV downloads
+
+
+Deployment Checklist
+Pre-Deployment
+
+ Environment variables configured
+ GCS bucket created and accessible
+ Service account permissions verified
+ Dependencies installed (npm install)
+ Build successful (npm run build)
+ Tests passing (npm test)
+
+Deployment Steps
+
+Set up GCS bucket with lifecycle policy
+Configure service account and download key
+Set environment variables on server
+Deploy backend (Cloud Run, Compute Engine, etc.)
+Deploy frontend (Firebase Hosting, Vercel, etc.)
+Test health endpoint
+Monitor GCS bucket usage
+
+Post-Deployment
+
+ Verify health endpoint returns gcs: true
+ Test end-to-end job flow
+ Monitor GCS API quotas
+ Set up alerts for failed jobs
+ Document API endpoints
+
+
+Migration Path to Real FastAPI
+When the FastAPI service is ready:
+
+No Frontend Changes Required: Frontend already uses async polling pattern
+Update Routes: Change /api/ccda-gen-test-cases to call FastAPI on localhost:8000
+Keep GCS Structure: FastAPI should use identical bucket structure
+Maintain Polling: Keep same status endpoints and polling intervals
+Gradual Rollout: Use feature flag to switch between mock and real service
+
+Compatibility Requirements:
+
+FastAPI must implement identical GCS structure
+FastAPI must return same JSON response formats
+FastAPI must update status.json at same intervals
+Job IDs must remain UUID v4 format
+
+
+Success Criteria
+Functional Requirements
+✅ User can upload CSV and receive job_id in <200ms
+✅ Status updates every 3 seconds during processing
+✅ Test cases generated based on actual CSV fields
+✅ All data persisted to GCS with correct structure
+✅ CSV download works correctly
+✅ Multiple concurrent jobs supported
+✅ Jobs survive server restarts
+Non-Functional Requirements
+✅ Response time: <100ms for status checks
+✅ Generation time: 2-5 seconds per job
+✅ Uptime: 99.9% (GCS reliability)
+✅ Scalability: 100+ concurrent users
+✅ Storage cost: <$5/month for 1000 jobs
+
+Troubleshooting Guide
+Common Issues
+Issue: "Cannot access GCS bucket"
+
+Solution: Verify service account permissions, check GOOGLE_APPLICATION_CREDENTIALS path
+
+Issue: "Job not found after creation"
+
+Solution: Check GCS write permissions, verify job_id is valid UUID
+
+Issue: "Polling never completes"
+
+Solution: Check status.json in GCS, verify background task completed
+
+Issue: "CSV download fails"
+
+Solution: Verify output.csv exists in GCS, check file permissions
+
+Issue: "Frontend keeps loading"
+
+Solution: Check browser console for errors, verify polling interval is set
+
+
+Documentation Requirements
+API Documentation
+
+OpenAPI/Swagger spec for all endpoints
+Request/response examples for each endpoint
+Error code descriptions
+Rate limiting information
+
+Developer Guide
+
+Setup instructions for local development
+GCS bucket setup steps
+Service account configuration
+Testing procedures
+Deployment guide
+
+User Guide
+
+How to upload CSV files
+Understanding job status
+Downloading results
+Troubleshooting common errors
+
+
+This comprehensive prompt provides everything needed to implement a production-ready GCS-based async test case generation system that perfectly mimics the FastAPI approach while running entirely on Node.js. The system is designed for seamless migration to the real FastAPI service when ready.RetryClaude does not have the ability to run the code it generates yet.Claude can make mistakes. Please double-check responses.Please give me a prompt covering all of this for replit to build in simple steps and in one page Sonnet 4.5

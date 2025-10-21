@@ -1,0 +1,97 @@
+FHIR Test Case Generator: Full-Stack Solution
+Objective
+Build a rich, modern full-stack application that allows users to upload a FHIR mapping CSV, sends the contents to a FastAPI backend powered by Google Vertex AI, and visualizes the generated test cases in a beautiful JSON viewer—all with a best-in-class user experience.
+
+User Journey
+User Interface:
+
+User sees a visually appealing web page with a title, brief instruction, and a CSV upload section.
+
+User selects or drags a CSV mapping file (e.g., HL7/CCDA to FHIR mapping).
+
+User clicks an Upload button to submit the file.
+
+While processing, the UI shows a loading/progress indicator.
+
+When complete, the resulting JSON (including test cases and statistical summary) is rendered interactively for easy analysis.
+
+Backend:
+
+Receives the CSV mapping content from the UI via a REST POST JSON payload.
+
+Passes this to a Google Vertex AI-powered agent to generate comprehensive FHIR test case JSON.
+
+Returns the output JSON directly in the HTTP response.
+
+JSON Visualization:
+
+Results are rendered using an expandable/collapsible, pretty JSON viewer with Material UI look and feel.
+
+Supports copy, expand/collapse, dark/light mode, etc.
+
+Features and Technical Requirements
+React Frontend
+Material UI for all design and components (inputs, buttons, cards, progress, typography).
+
+File input (CSV), upload button, and filename display.
+
+Submit CSV as text (not as FormData/file upload) in a JSON payload.
+
+Use Axios (or fetch) for HTTP calls.
+
+Responsive layout for desktop and mobile.
+
+Snackbar/toast for errors and feedback.
+
+Use @textea/json-viewer for result rendering.
+
+Clear separation of UI logic into components (FileUpload, JsonResultViewer, etc).
+
+Theming (primary/secondary palette, custom typography).
+
+Instructions and user guidance included.
+
+FastAPI Backend
+Expose a POST /generate_test_cases endpoint that expects:
+
+{ "csv_mapping": <str>, "batch_number": <str>, "user_id": <str> }
+
+Calls into a Python function using Vertex AI to generate JSON output from the CSV.
+
+Returns JSON (with both TestCases array and StatisticalSummary object).
+
+Enable CORS for frontend requests.
+
+Input/Output Example
+Input:
+User uploads a file containing FHIR attribute mappings in CSV (as per backend specification).
+
+Output:
+JSON with an array of test cases and a statistical summary, rendered in an interactive viewer on the page.
+
+Quality Bar
+The UI must look professional and be lovable to use: logo, color, and surface details should be thought through.
+
+Error handling must be robust and actionable for users.
+
+The JSON viewer must be visually rich and interactive, not just plain text.
+
+The entire flow from upload to result must be fast and user-friendly.
+
+Deliverables
+React app (folder structure and code) as described, ready to npm start.
+
+Backend (FastAPI) sample endpoint with low configuration barrier, ready for local run.
+
+Deployment/readme guide for both front and backend integration and running.
+
+Extended Considerations
+Future enhancement: allow history of results or download of the JSON.
+
+Support for additional file validation (CSV only).
+
+Light/dark material theme toggle.
+
+Summary:
+Create a visually impressive, well-engineered React + FastAPI app to let users upload mapping files, invoke Vertex AI to generate FHIR test case JSON, and display the result in a modern, interactive JSON viewer with all UI best practices.
+

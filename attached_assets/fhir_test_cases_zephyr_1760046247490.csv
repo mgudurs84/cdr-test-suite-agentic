@@ -1,0 +1,132 @@
+Name,Objective,Priority,Status,Component,Labels,Test Script Plain Text,Expected Result
+B_001_TC_001_functional_positive,Verify successful mapping of MSH.3 to MessageHeader.source with valid data.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid application ID in MSH.3.
+2. Transform the HL7 message to a FHIR MessageHeader resource.
+3. Verify that the MessageHeader.source field contains the application ID from MSH.3.",The MessageHeader.source field matches the value in MSH.3.
+B_001_TC_002_functional_negative,Verify handling of missing MSH.3 when MessageHeader.source is required.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an empty MSH.3 field.
+2. Transform the HL7 message to a FHIR MessageHeader resource.
+3. Verify that the MessageHeader.source field contains either an error message or a default value.
+4. Check for error log that indicates the source field is missing from the HL7 message.",The transformation process handles the missing MSH.3 gracefully with either a default value being used or an error message being logged and reported.
+B_001_TC_003_regression_positive,Ensure that the MSH.3 to MessageHeader.source mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid application ID in MSH.3.
+2. Transform the HL7 message to a FHIR MessageHeader resource.
+3. Verify that the MessageHeader.source field contains the application ID from MSH.3.",The MessageHeader.source field matches the value in MSH.3 after the system update.
+B_001_TC_004_edge_positive,Verify mapping of MSH.3 with maximum allowed length to MessageHeader.source.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with MSH.3 populated with a string of the maximum allowed length.
+2. Transform the HL7 message to a FHIR MessageHeader resource.
+3. Verify that the MessageHeader.source field contains the application ID from MSH.3.","The MessageHeader.source field matches the value in MSH.3, and no truncation or errors occur."
+B_001_TC_005_functional_positive,Verify successful mapping of MSH.4 to MessageHeader.focus with valid data.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid sending facility ID in MSH.4.
+2. Transform the HL7 message to a FHIR MessageHeader resource.
+3. Verify that the MessageHeader.focus field contains the sending facility ID from MSH.4.",The MessageHeader.focus field matches the value in MSH.4.
+B_001_TC_006_functional_negative,Verify handling of invalid data in MSH.4.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an invalid sending facility ID in MSH.4.
+2. Transform the HL7 message to a FHIR MessageHeader resource.
+3. Verify that the MessageHeader.focus field contains either an error message or a default value, or the transformation process handles the error without crashing.",The transformation process handles the invalid MSH.4 gracefully with either a default value being used or an error message being logged and reported.
+B_001_TC_007_regression_positive,Ensure that the MSH.4 to MessageHeader.focus mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid sending facility ID in MSH.4.
+2. Transform the HL7 message to a FHIR MessageHeader resource.
+3. Verify that the MessageHeader.focus field contains the sending facility ID from MSH.4.",The MessageHeader.focus field matches the value in MSH.4 after the system update.
+B_001_TC_008_edge_positive,Verify mapping of MSH.4 when it is empty to MessageHeader.focus (optional field).,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an empty MSH.4 field.
+2. Transform the HL7 message to a FHIR MessageHeader resource.
+3. Verify that the MessageHeader.focus field is empty or null.",The MessageHeader.focus field is empty or null when MSH.4 is empty.
+B_001_TC_009_functional_positive,Verify successful mapping of PID.3 to Patient.identifier with a valid system.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid patient identifier in PID.3.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.identifier field contains the identifier from PID.3 and the correct system (http://hospital.org/patient-ids).","The Patient.identifier.value matches the value in PID.3, and the Patient.identifier.system is 'http://hospital.org/patient-ids'."
+B_001_TC_010_functional_negative,Verify handling of missing PID.3 when Patient.identifier is required.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an empty PID.3 field.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.identifier field contains either an error message or a default value.
+4. Check for an error log that indicates the identifier field is missing from the HL7 message.",The transformation process handles the missing PID.3 gracefully with either a default value being used or an error message being logged and reported.
+B_001_TC_011_regression_positive,Ensure that the PID.3 to Patient.identifier mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid patient identifier in PID.3.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.identifier field contains the identifier from PID.3 and the correct system (http://hospital.org/patient-ids).","The Patient.identifier.value matches the value in PID.3, and the Patient.identifier.system is 'http://hospital.org/patient-ids' after the system update."
+B_001_TC_012_edge_positive,Verify mapping of multiple identifiers in PID.3 to multiple Patient.identifier entries.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with multiple patient identifiers in PID.3 (use repetition).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.identifier array contains all identifiers from PID.3, each with the correct system (http://hospital.org/patient-ids).","The Patient.identifier array contains all identifiers from PID.3, and each Patient.identifier.system is 'http://hospital.org/patient-ids'."
+B_001_TC_013_functional_positive,Verify successful mapping of PID.5 to Patient.name with valid family and given names.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid family name in PID.5.1 and a given name in PID.5.2.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.name field contains the correct family and given names from PID.5.","The Patient.name.family matches the value in PID.5.1, and Patient.name.given matches the value in PID.5.2."
+B_001_TC_014_functional_negative,Verify handling of missing PID.5 when Patient.name is required.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an empty PID.5 field.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.name field contains either an error message or a default name.
+4. Check for an error log that indicates that the name field is missing from the HL7 message.",The transformation process handles the missing PID.5 gracefully with either a default name being used or an error message being logged and reported.
+B_001_TC_015_regression_positive,Ensure that the PID.5 to Patient.name mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid family name in PID.5.1 and a given name in PID.5.2.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.name field contains the correct family and given names from PID.5.","The Patient.name.family matches the value in PID.5.1, and Patient.name.given matches the value in PID.5.2 after the system update."
+B_001_TC_016_edge_positive,Verify mapping of PID.5 with a prefix to Patient.name.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid family name in PID.5.1, a given name in PID.5.2, and a prefix in PID.5.5.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.name field contains the correct family, given, and prefix from PID.5.","The Patient.name.family matches the value in PID.5.1, Patient.name.given matches the value in PID.5.2, and Patient.name.prefix matches the value in PID.5.5."
+B_001_TC_017_functional_positive,Verify successful mapping of PID.7 to Patient.birthDate with a valid date format.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid birth date in PID.7 (YYYYMMDD format).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.birthDate field contains the correct date in YYYY-MM-DD format.","The Patient.birthDate field contains the correct date in YYYY-MM-DD format, converted from the YYYYMMDD format in PID.7."
+B_001_TC_018_functional_negative,Verify handling of invalid date format in PID.7.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an invalid birth date format in PID.7 (e.g., YYYY/MM/DD).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.birthDate field is empty or null.
+4. Check for an error log that indicates that the date format is invalid.","The Patient.birthDate field is empty or null when PID.7 contains an invalid date format, and an error is logged."
+B_001_TC_019_regression_positive,Ensure that the PID.7 to Patient.birthDate mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid birth date in PID.7 (YYYYMMDD format).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.birthDate field contains the correct date in YYYY-MM-DD format.","The Patient.birthDate field contains the correct date in YYYY-MM-DD format, converted from the YYYYMMDD format in PID.7 after the system update."
+B_001_TC_020_edge_positive,Verify mapping of PID.7 with the earliest possible date to Patient.birthDate.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with the earliest possible date in PID.7 (e.g., 19000101).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.birthDate field contains the earliest possible date in YYYY-MM-DD format.","The Patient.birthDate field contains the earliest possible date in YYYY-MM-DD format, converted from the YYYYMMDD format in PID.7."
+B_001_TC_021_functional_positive,Verify successful mapping of PID.8 to Patient.gender with valid HL7 gender codes.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid gender code in PID.8 (M, F, U, O).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.gender field contains the correct gender based on the HL7 gender code (male, female, unknown, other).","The Patient.gender field matches the corresponding FHIR gender code based on the HL7 gender code in PID.8 (M->male, F->female, U->unknown, O->other)."
+B_001_TC_022_functional_negative,Verify handling of invalid HL7 gender code in PID.8.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an invalid gender code in PID.8 (e.g., X).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.gender field is empty or null.
+4. Check for an error log that indicates that the gender code is invalid.","The Patient.gender field is empty or null when PID.8 contains an invalid gender code, and an error is logged."
+B_001_TC_023_regression_positive,Ensure that the PID.8 to Patient.gender mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid gender code in PID.8 (M, F, U, O).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.gender field contains the correct gender based on the HL7 gender code (male, female, unknown, other).","The Patient.gender field matches the corresponding FHIR gender code based on the HL7 gender code in PID.8 (M->male, F->female, U->unknown, O->other) after the system update."
+B_001_TC_024_edge_positive,Verify mapping of PID.8 with an empty value to Patient.gender (optional field).,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an empty PID.8 field.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.gender field is empty or null.",The Patient.gender field is empty or null when PID.8 is empty.
+B_001_TC_025_functional_positive,Verify successful mapping of PID.11 to Patient.address with valid address components.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with valid address components in PID.11 (line, city, state, postal code).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.address field contains the correct address components from PID.11.","The Patient.address.line matches the value in PID.11.1, Patient.address.city matches the value in PID.11.3, Patient.address.state matches the value in PID.11.4, and Patient.address.postalCode matches the value in PID.11.5."
+B_001_TC_026_functional_negative,Verify handling of missing address components in PID.11.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with only some of the address components in PID.11 (e.g., only city and state).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.address field contains the available address components from PID.11.","The Patient.address field contains the available address components from PID.11, and missing components are not populated with default values."
+B_001_TC_027_regression_positive,Ensure that the PID.11 to Patient.address mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with valid address components in PID.11 (line, city, state, postal code).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.address field contains the correct address components from PID.11.","The Patient.address.line matches the value in PID.11.1, Patient.address.city matches the value in PID.11.3, Patient.address.state matches the value in PID.11.4, and Patient.address.postalCode matches the value in PID.11.5 after the system update."
+B_001_TC_028_edge_positive,Verify mapping of multiple address entries in PID.11 to multiple Patient.address entries.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with multiple address entries in PID.11 (use repetition).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.address array contains all address entries from PID.11.","The Patient.address array contains all address entries from PID.11, and each Patient.address entry contains the correct address components."
+B_001_TC_029_functional_positive,Verify successful mapping of PID.13 to Patient.telecom with a valid phone number.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid phone number in PID.13.1.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.telecom field contains the correct system (phone) and value from PID.13.1.","The Patient.telecom.system is 'phone', and Patient.telecom.value matches the value in PID.13.1."
+B_001_TC_030_functional_negative,Verify handling of invalid phone number in PID.13.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an invalid phone number in PID.13.1 (e.g., non-numeric characters).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.telecom field is empty or null.
+4. Check for an error log that indicates that the phone number is invalid.","The Patient.telecom field is empty or null when PID.13.1 contains an invalid phone number, and an error is logged."
+B_001_TC_031_regression_positive,Ensure that the PID.13 to Patient.telecom mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid phone number in PID.13.1.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.telecom field contains the correct system (phone) and value from PID.13.1.","The Patient.telecom.system is 'phone', and Patient.telecom.value matches the value in PID.13.1 after the system update."
+B_001_TC_032_edge_positive,Verify mapping of multiple phone numbers in PID.13 to multiple Patient.telecom entries.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with multiple phone numbers in PID.13 (use repetition).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.telecom array contains all phone numbers from PID.13.","The Patient.telecom array contains all phone numbers from PID.13, and each Patient.telecom.system is 'phone'."
+B_001_TC_033_functional_positive,Verify successful mapping of PID.14 to Patient.telecom with a valid work phone number.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid work phone number in PID.14.1.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.telecom field contains the correct system (phone), use (work), and value from PID.14.1.","The Patient.telecom.system is 'phone', Patient.telecom.use is 'work', and Patient.telecom.value matches the value in PID.14.1."
+B_001_TC_034_functional_negative,Verify handling of invalid phone number in PID.14.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an invalid phone number in PID.14.1 (e.g., non-numeric characters).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.telecom field is empty or null.
+4. Check for an error log that indicates that the phone number is invalid.","The Patient.telecom field is empty or null when PID.14.1 contains an invalid phone number, and an error is logged."
+B_001_TC_035_regression_positive,Ensure that the PID.14 to Patient.telecom mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid work phone number in PID.14.1.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.telecom field contains the correct system (phone), use (work), and value from PID.14.1.","The Patient.telecom.system is 'phone', Patient.telecom.use is 'work', and Patient.telecom.value matches the value in PID.14.1 after the system update."
+B_001_TC_036_edge_positive,Verify mapping of multiple work phone numbers in PID.14 to multiple Patient.telecom entries.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with multiple work phone numbers in PID.14 (use repetition).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.telecom array contains all work phone numbers from PID.14.","The Patient.telecom array contains all phone numbers from PID.14, and each Patient.telecom.system is 'phone' and Patient.telecom.use is 'work'."
+B_001_TC_037_functional_positive,Verify successful mapping of PID.16 to Patient.maritalStatus with a valid marital status code.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid marital status code in PID.16 (e.g., M, D, S).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.maritalStatus field contains the correct marital status based on the HL7 marital status code.","The Patient.maritalStatus field matches the corresponding FHIR marital status based on the HL7 marital status code in PID.16, using HL7 Table 0002."
+B_001_TC_038_functional_negative,Verify handling of invalid marital status code in PID.16.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an invalid marital status code in PID.16 (e.g., X).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.maritalStatus field is empty or null.
+4. Check for an error log that indicates that the marital status code is invalid.","The Patient.maritalStatus field is empty or null when PID.16 contains an invalid marital status code, and an error is logged."
+B_001_TC_039_regression_positive,Ensure that the PID.16 to Patient.maritalStatus mapping remains functional after system updates.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid marital status code in PID.16 (e.g., M, D, S).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.maritalStatus field contains the correct marital status based on the HL7 marital status code.","The Patient.maritalStatus field matches the corresponding FHIR marital status based on the HL7 marital status code in PID.16 after the system update, using HL7 Table 0002."
+B_001_TC_040_edge_positive,Verify mapping of PID.16 with an empty value to Patient.maritalStatus (optional field).,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with an empty PID.16 field.
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.maritalStatus field is empty or null.",The Patient.maritalStatus field is empty or null when PID.16 is empty.
+B_001_TC_041_functional_positive,Verify successful mapping of PID.24 to Patient.multipleBirthBoolean with valid boolean indicators.,High,Draft,FUNCTIONAL,POSITIVE,"1. Provide an HL7 message with a valid boolean indicator in PID.24 (Y or N).
+2. Transform the HL7 message to a FHIR Patient resource.
+3. Verify that the Patient.multipleBirthBoolean field contains the correct boolean value based on the HL7 boolean indicator (Y->true, N->false).","The Patient.multipleBirthBoolean field matches the corresponding boolean value based on the HL7 boolean indicator in PID.24 (Y->true, N->false)."

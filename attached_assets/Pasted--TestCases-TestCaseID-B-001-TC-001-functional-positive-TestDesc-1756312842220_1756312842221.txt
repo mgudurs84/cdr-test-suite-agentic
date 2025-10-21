@@ -1,0 +1,1226 @@
+{
+  "TestCases": [
+    {
+      "TestCaseID": "B_001_TC_001_functional_positive",
+      "TestDescription": "Verify successful mapping of MSH.3 to MessageHeader.source with valid data",
+      "ExpectedOutput": "MessageHeader resource with source correctly populated from MSH.3",
+      "TestSteps": [
+        "Provide valid data in MSH.3",
+        "Transform to FHIR MessageHeader resource",
+        "Validate source mapping"
+      ],
+      "PassFailCriteria": "Test passes if source is correctly mapped from MSH.3",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_002_functional_negative",
+      "TestDescription": "Verify handling of empty/missing MSH.3 data",
+      "ExpectedOutput": "MessageHeader resource created without source or with appropriate default",
+      "TestSteps": [
+        "Provide empty MSH.3",
+        "Transform to FHIR MessageHeader resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing MSH.3 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_003_edge_positive",
+      "TestDescription": "Verify handling of edge case data in MSH.3",
+      "ExpectedOutput": "MessageHeader resource with source handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in MSH.3",
+        "Transform to FHIR MessageHeader resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_004_functional_positive",
+      "TestDescription": "Verify successful mapping of MSH.4 to MessageHeader.focus with valid data",
+      "ExpectedOutput": "MessageHeader resource with focus correctly populated from MSH.4",
+      "TestSteps": [
+        "Provide valid data in MSH.4",
+        "Transform to FHIR MessageHeader resource",
+        "Validate focus mapping"
+      ],
+      "PassFailCriteria": "Test passes if focus is correctly mapped from MSH.4",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_005_functional_negative",
+      "TestDescription": "Verify handling of empty/missing MSH.4 data",
+      "ExpectedOutput": "MessageHeader resource created without focus or with appropriate default",
+      "TestSteps": [
+        "Provide empty MSH.4",
+        "Transform to FHIR MessageHeader resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing MSH.4 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_006_edge_positive",
+      "TestDescription": "Verify handling of edge case data in MSH.4",
+      "ExpectedOutput": "MessageHeader resource with focus handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in MSH.4",
+        "Transform to FHIR MessageHeader resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_007_functional_positive",
+      "TestDescription": "Verify successful mapping of PID.3 to Patient.identifier with valid data",
+      "ExpectedOutput": "Patient resource with identifier correctly populated from PID.3",
+      "TestSteps": [
+        "Provide valid data in PID.3",
+        "Transform to FHIR Patient resource",
+        "Validate identifier mapping"
+      ],
+      "PassFailCriteria": "Test passes if identifier is correctly mapped from PID.3",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_008_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PID.3 data",
+      "ExpectedOutput": "Patient resource created without identifier or with appropriate default",
+      "TestSteps": [
+        "Provide empty PID.3",
+        "Transform to FHIR Patient resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PID.3 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_009_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PID.3",
+      "ExpectedOutput": "Patient resource with identifier handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PID.3",
+        "Transform to FHIR Patient resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_010_functional_positive",
+      "TestDescription": "Verify successful mapping of PID.5 to Patient.name with valid data",
+      "ExpectedOutput": "Patient resource with name correctly populated from PID.5",
+      "TestSteps": [
+        "Provide valid data in PID.5",
+        "Transform to FHIR Patient resource",
+        "Validate name mapping"
+      ],
+      "PassFailCriteria": "Test passes if name is correctly mapped from PID.5",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_011_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PID.5 data",
+      "ExpectedOutput": "Patient resource created without name or with appropriate default",
+      "TestSteps": [
+        "Provide empty PID.5",
+        "Transform to FHIR Patient resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PID.5 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_012_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PID.5",
+      "ExpectedOutput": "Patient resource with name handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PID.5",
+        "Transform to FHIR Patient resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_013_functional_positive",
+      "TestDescription": "Verify successful mapping of PID.7 to Patient.birthDate with valid data",
+      "ExpectedOutput": "Patient resource with birthDate correctly populated from PID.7",
+      "TestSteps": [
+        "Provide valid data in PID.7",
+        "Transform to FHIR Patient resource",
+        "Validate birthDate mapping"
+      ],
+      "PassFailCriteria": "Test passes if birthDate is correctly mapped from PID.7",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_014_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PID.7 data",
+      "ExpectedOutput": "Patient resource created without birthDate or with appropriate default",
+      "TestSteps": [
+        "Provide empty PID.7",
+        "Transform to FHIR Patient resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PID.7 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_015_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PID.7",
+      "ExpectedOutput": "Patient resource with birthDate handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PID.7",
+        "Transform to FHIR Patient resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_016_functional_positive",
+      "TestDescription": "Verify successful mapping of PID.8 to Patient.gender with valid data",
+      "ExpectedOutput": "Patient resource with gender correctly populated from PID.8",
+      "TestSteps": [
+        "Provide valid data in PID.8",
+        "Transform to FHIR Patient resource",
+        "Validate gender mapping"
+      ],
+      "PassFailCriteria": "Test passes if gender is correctly mapped from PID.8",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_017_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PID.8 data",
+      "ExpectedOutput": "Patient resource created without gender or with appropriate default",
+      "TestSteps": [
+        "Provide empty PID.8",
+        "Transform to FHIR Patient resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PID.8 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_018_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PID.8",
+      "ExpectedOutput": "Patient resource with gender handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PID.8",
+        "Transform to FHIR Patient resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_019_functional_positive",
+      "TestDescription": "Verify successful mapping of PID.11 to Patient.address with valid data",
+      "ExpectedOutput": "Patient resource with address correctly populated from PID.11",
+      "TestSteps": [
+        "Provide valid data in PID.11",
+        "Transform to FHIR Patient resource",
+        "Validate address mapping"
+      ],
+      "PassFailCriteria": "Test passes if address is correctly mapped from PID.11",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_020_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PID.11 data",
+      "ExpectedOutput": "Patient resource created without address or with appropriate default",
+      "TestSteps": [
+        "Provide empty PID.11",
+        "Transform to FHIR Patient resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PID.11 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_021_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PID.11",
+      "ExpectedOutput": "Patient resource with address handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PID.11",
+        "Transform to FHIR Patient resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_022_functional_positive",
+      "TestDescription": "Verify successful mapping of PID.13 to Patient.telecom with valid data",
+      "ExpectedOutput": "Patient resource with telecom correctly populated from PID.13",
+      "TestSteps": [
+        "Provide valid data in PID.13",
+        "Transform to FHIR Patient resource",
+        "Validate telecom mapping"
+      ],
+      "PassFailCriteria": "Test passes if telecom is correctly mapped from PID.13",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_023_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PID.13 data",
+      "ExpectedOutput": "Patient resource created without telecom or with appropriate default",
+      "TestSteps": [
+        "Provide empty PID.13",
+        "Transform to FHIR Patient resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PID.13 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_024_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PID.13",
+      "ExpectedOutput": "Patient resource with telecom handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PID.13",
+        "Transform to FHIR Patient resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_025_functional_positive",
+      "TestDescription": "Verify successful mapping of PID.14 to Patient.telecom with valid data",
+      "ExpectedOutput": "Patient resource with telecom correctly populated from PID.14",
+      "TestSteps": [
+        "Provide valid data in PID.14",
+        "Transform to FHIR Patient resource",
+        "Validate telecom mapping"
+      ],
+      "PassFailCriteria": "Test passes if telecom is correctly mapped from PID.14",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_026_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PID.14 data",
+      "ExpectedOutput": "Patient resource created without telecom or with appropriate default",
+      "TestSteps": [
+        "Provide empty PID.14",
+        "Transform to FHIR Patient resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PID.14 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_027_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PID.14",
+      "ExpectedOutput": "Patient resource with telecom handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PID.14",
+        "Transform to FHIR Patient resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_028_functional_positive",
+      "TestDescription": "Verify successful mapping of PID.16 to Patient.maritalStatus with valid data",
+      "ExpectedOutput": "Patient resource with maritalStatus correctly populated from PID.16",
+      "TestSteps": [
+        "Provide valid data in PID.16",
+        "Transform to FHIR Patient resource",
+        "Validate maritalStatus mapping"
+      ],
+      "PassFailCriteria": "Test passes if maritalStatus is correctly mapped from PID.16",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_029_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PID.16 data",
+      "ExpectedOutput": "Patient resource created without maritalStatus or with appropriate default",
+      "TestSteps": [
+        "Provide empty PID.16",
+        "Transform to FHIR Patient resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PID.16 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_030_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PID.16",
+      "ExpectedOutput": "Patient resource with maritalStatus handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PID.16",
+        "Transform to FHIR Patient resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_031_functional_positive",
+      "TestDescription": "Verify successful mapping of PID.24 to Patient.multipleBirthBoolean with valid data",
+      "ExpectedOutput": "Patient resource with multipleBirthBoolean correctly populated from PID.24",
+      "TestSteps": [
+        "Provide valid data in PID.24",
+        "Transform to FHIR Patient resource",
+        "Validate multipleBirthBoolean mapping"
+      ],
+      "PassFailCriteria": "Test passes if multipleBirthBoolean is correctly mapped from PID.24",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_032_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PID.24 data",
+      "ExpectedOutput": "Patient resource created without multipleBirthBoolean or with appropriate default",
+      "TestSteps": [
+        "Provide empty PID.24",
+        "Transform to FHIR Patient resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PID.24 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_033_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PID.24",
+      "ExpectedOutput": "Patient resource with multipleBirthBoolean handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PID.24",
+        "Transform to FHIR Patient resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_034_functional_positive",
+      "TestDescription": "Verify successful mapping of PV1.2 to Encounter.class with valid data",
+      "ExpectedOutput": "Encounter resource with class correctly populated from PV1.2",
+      "TestSteps": [
+        "Provide valid data in PV1.2",
+        "Transform to FHIR Encounter resource",
+        "Validate class mapping"
+      ],
+      "PassFailCriteria": "Test passes if class is correctly mapped from PV1.2",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_035_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PV1.2 data",
+      "ExpectedOutput": "Encounter resource created without class or with appropriate default",
+      "TestSteps": [
+        "Provide empty PV1.2",
+        "Transform to FHIR Encounter resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PV1.2 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_036_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PV1.2",
+      "ExpectedOutput": "Encounter resource with class handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PV1.2",
+        "Transform to FHIR Encounter resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_037_functional_positive",
+      "TestDescription": "Verify successful mapping of PV1.3 to Encounter.location with valid data",
+      "ExpectedOutput": "Encounter resource with location correctly populated from PV1.3",
+      "TestSteps": [
+        "Provide valid data in PV1.3",
+        "Transform to FHIR Encounter resource",
+        "Validate location mapping"
+      ],
+      "PassFailCriteria": "Test passes if location is correctly mapped from PV1.3",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_038_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PV1.3 data",
+      "ExpectedOutput": "Encounter resource created without location or with appropriate default",
+      "TestSteps": [
+        "Provide empty PV1.3",
+        "Transform to FHIR Encounter resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PV1.3 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_039_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PV1.3",
+      "ExpectedOutput": "Encounter resource with location handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PV1.3",
+        "Transform to FHIR Encounter resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_040_functional_positive",
+      "TestDescription": "Verify successful mapping of PV1.7 to Encounter.participant with valid data",
+      "ExpectedOutput": "Encounter resource with participant correctly populated from PV1.7",
+      "TestSteps": [
+        "Provide valid data in PV1.7",
+        "Transform to FHIR Encounter resource",
+        "Validate participant mapping"
+      ],
+      "PassFailCriteria": "Test passes if participant is correctly mapped from PV1.7",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_041_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PV1.7 data",
+      "ExpectedOutput": "Encounter resource created without participant or with appropriate default",
+      "TestSteps": [
+        "Provide empty PV1.7",
+        "Transform to FHIR Encounter resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PV1.7 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_042_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PV1.7",
+      "ExpectedOutput": "Encounter resource with participant handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PV1.7",
+        "Transform to FHIR Encounter resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_043_functional_positive",
+      "TestDescription": "Verify successful mapping of PV1.44 to Encounter.period with valid data",
+      "ExpectedOutput": "Encounter resource with period correctly populated from PV1.44",
+      "TestSteps": [
+        "Provide valid data in PV1.44",
+        "Transform to FHIR Encounter resource",
+        "Validate period mapping"
+      ],
+      "PassFailCriteria": "Test passes if period is correctly mapped from PV1.44",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_044_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PV1.44 data",
+      "ExpectedOutput": "Encounter resource created without period or with appropriate default",
+      "TestSteps": [
+        "Provide empty PV1.44",
+        "Transform to FHIR Encounter resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PV1.44 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_045_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PV1.44",
+      "ExpectedOutput": "Encounter resource with period handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PV1.44",
+        "Transform to FHIR Encounter resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_046_functional_positive",
+      "TestDescription": "Verify successful mapping of PV1.45 to Encounter.period with valid data",
+      "ExpectedOutput": "Encounter resource with period correctly populated from PV1.45",
+      "TestSteps": [
+        "Provide valid data in PV1.45",
+        "Transform to FHIR Encounter resource",
+        "Validate period mapping"
+      ],
+      "PassFailCriteria": "Test passes if period is correctly mapped from PV1.45",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_047_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PV1.45 data",
+      "ExpectedOutput": "Encounter resource created without period or with appropriate default",
+      "TestSteps": [
+        "Provide empty PV1.45",
+        "Transform to FHIR Encounter resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PV1.45 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_048_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PV1.45",
+      "ExpectedOutput": "Encounter resource with period handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PV1.45",
+        "Transform to FHIR Encounter resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_049_functional_positive",
+      "TestDescription": "Verify successful mapping of OBR.4 to DiagnosticReport.code with valid data",
+      "ExpectedOutput": "DiagnosticReport resource with code correctly populated from OBR.4",
+      "TestSteps": [
+        "Provide valid data in OBR.4",
+        "Transform to FHIR DiagnosticReport resource",
+        "Validate code mapping"
+      ],
+      "PassFailCriteria": "Test passes if code is correctly mapped from OBR.4",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_050_functional_negative",
+      "TestDescription": "Verify handling of empty/missing OBR.4 data",
+      "ExpectedOutput": "DiagnosticReport resource created without code or with appropriate default",
+      "TestSteps": [
+        "Provide empty OBR.4",
+        "Transform to FHIR DiagnosticReport resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing OBR.4 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_051_edge_positive",
+      "TestDescription": "Verify handling of edge case data in OBR.4",
+      "ExpectedOutput": "DiagnosticReport resource with code handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in OBR.4",
+        "Transform to FHIR DiagnosticReport resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_052_functional_positive",
+      "TestDescription": "Verify successful mapping of OBR.7 to DiagnosticReport.effectiveDateTime with valid data",
+      "ExpectedOutput": "DiagnosticReport resource with effectiveDateTime correctly populated from OBR.7",
+      "TestSteps": [
+        "Provide valid data in OBR.7",
+        "Transform to FHIR DiagnosticReport resource",
+        "Validate effectiveDateTime mapping"
+      ],
+      "PassFailCriteria": "Test passes if effectiveDateTime is correctly mapped from OBR.7",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_053_functional_negative",
+      "TestDescription": "Verify handling of empty/missing OBR.7 data",
+      "ExpectedOutput": "DiagnosticReport resource created without effectiveDateTime or with appropriate default",
+      "TestSteps": [
+        "Provide empty OBR.7",
+        "Transform to FHIR DiagnosticReport resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing OBR.7 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_054_edge_positive",
+      "TestDescription": "Verify handling of edge case data in OBR.7",
+      "ExpectedOutput": "DiagnosticReport resource with effectiveDateTime handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in OBR.7",
+        "Transform to FHIR DiagnosticReport resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_055_functional_positive",
+      "TestDescription": "Verify successful mapping of OBR.16 to DiagnosticReport.performer with valid data",
+      "ExpectedOutput": "DiagnosticReport resource with performer correctly populated from OBR.16",
+      "TestSteps": [
+        "Provide valid data in OBR.16",
+        "Transform to FHIR DiagnosticReport resource",
+        "Validate performer mapping"
+      ],
+      "PassFailCriteria": "Test passes if performer is correctly mapped from OBR.16",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_056_functional_negative",
+      "TestDescription": "Verify handling of empty/missing OBR.16 data",
+      "ExpectedOutput": "DiagnosticReport resource created without performer or with appropriate default",
+      "TestSteps": [
+        "Provide empty OBR.16",
+        "Transform to FHIR DiagnosticReport resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing OBR.16 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_057_edge_positive",
+      "TestDescription": "Verify handling of edge case data in OBR.16",
+      "ExpectedOutput": "DiagnosticReport resource with performer handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in OBR.16",
+        "Transform to FHIR DiagnosticReport resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_058_functional_positive",
+      "TestDescription": "Verify successful mapping of OBX.3 to Observation.code with valid data",
+      "ExpectedOutput": "Observation resource with code correctly populated from OBX.3",
+      "TestSteps": [
+        "Provide valid data in OBX.3",
+        "Transform to FHIR Observation resource",
+        "Validate code mapping"
+      ],
+      "PassFailCriteria": "Test passes if code is correctly mapped from OBX.3",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_059_functional_negative",
+      "TestDescription": "Verify handling of empty/missing OBX.3 data",
+      "ExpectedOutput": "Observation resource created without code or with appropriate default",
+      "TestSteps": [
+        "Provide empty OBX.3",
+        "Transform to FHIR Observation resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing OBX.3 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_060_edge_positive",
+      "TestDescription": "Verify handling of edge case data in OBX.3",
+      "ExpectedOutput": "Observation resource with code handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in OBX.3",
+        "Transform to FHIR Observation resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_061_functional_positive",
+      "TestDescription": "Verify successful mapping of OBX.5 to Observation.valueQuantity with valid data",
+      "ExpectedOutput": "Observation resource with valueQuantity correctly populated from OBX.5",
+      "TestSteps": [
+        "Provide valid data in OBX.5",
+        "Transform to FHIR Observation resource",
+        "Validate valueQuantity mapping"
+      ],
+      "PassFailCriteria": "Test passes if valueQuantity is correctly mapped from OBX.5",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_062_functional_negative",
+      "TestDescription": "Verify handling of empty/missing OBX.5 data",
+      "ExpectedOutput": "Observation resource created without valueQuantity or with appropriate default",
+      "TestSteps": [
+        "Provide empty OBX.5",
+        "Transform to FHIR Observation resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing OBX.5 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_063_edge_positive",
+      "TestDescription": "Verify handling of edge case data in OBX.5",
+      "ExpectedOutput": "Observation resource with valueQuantity handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in OBX.5",
+        "Transform to FHIR Observation resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_064_functional_positive",
+      "TestDescription": "Verify successful mapping of OBX.6 to Observation.valueQuantity with valid data",
+      "ExpectedOutput": "Observation resource with valueQuantity correctly populated from OBX.6",
+      "TestSteps": [
+        "Provide valid data in OBX.6",
+        "Transform to FHIR Observation resource",
+        "Validate valueQuantity mapping"
+      ],
+      "PassFailCriteria": "Test passes if valueQuantity is correctly mapped from OBX.6",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_065_functional_negative",
+      "TestDescription": "Verify handling of empty/missing OBX.6 data",
+      "ExpectedOutput": "Observation resource created without valueQuantity or with appropriate default",
+      "TestSteps": [
+        "Provide empty OBX.6",
+        "Transform to FHIR Observation resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing OBX.6 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_066_edge_positive",
+      "TestDescription": "Verify handling of edge case data in OBX.6",
+      "ExpectedOutput": "Observation resource with valueQuantity handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in OBX.6",
+        "Transform to FHIR Observation resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_067_functional_positive",
+      "TestDescription": "Verify successful mapping of OBX.11 to Observation.status with valid data",
+      "ExpectedOutput": "Observation resource with status correctly populated from OBX.11",
+      "TestSteps": [
+        "Provide valid data in OBX.11",
+        "Transform to FHIR Observation resource",
+        "Validate status mapping"
+      ],
+      "PassFailCriteria": "Test passes if status is correctly mapped from OBX.11",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_068_functional_negative",
+      "TestDescription": "Verify handling of empty/missing OBX.11 data",
+      "ExpectedOutput": "Observation resource created without status or with appropriate default",
+      "TestSteps": [
+        "Provide empty OBX.11",
+        "Transform to FHIR Observation resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing OBX.11 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_069_edge_positive",
+      "TestDescription": "Verify handling of edge case data in OBX.11",
+      "ExpectedOutput": "Observation resource with status handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in OBX.11",
+        "Transform to FHIR Observation resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_070_functional_positive",
+      "TestDescription": "Verify successful mapping of AL1.3 to AllergyIntolerance.code with valid data",
+      "ExpectedOutput": "AllergyIntolerance resource with code correctly populated from AL1.3",
+      "TestSteps": [
+        "Provide valid data in AL1.3",
+        "Transform to FHIR AllergyIntolerance resource",
+        "Validate code mapping"
+      ],
+      "PassFailCriteria": "Test passes if code is correctly mapped from AL1.3",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_071_functional_negative",
+      "TestDescription": "Verify handling of empty/missing AL1.3 data",
+      "ExpectedOutput": "AllergyIntolerance resource created without code or with appropriate default",
+      "TestSteps": [
+        "Provide empty AL1.3",
+        "Transform to FHIR AllergyIntolerance resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing AL1.3 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_072_edge_positive",
+      "TestDescription": "Verify handling of edge case data in AL1.3",
+      "ExpectedOutput": "AllergyIntolerance resource with code handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in AL1.3",
+        "Transform to FHIR AllergyIntolerance resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_073_functional_positive",
+      "TestDescription": "Verify successful mapping of AL1.4 to AllergyIntolerance.criticality with valid data",
+      "ExpectedOutput": "AllergyIntolerance resource with criticality correctly populated from AL1.4",
+      "TestSteps": [
+        "Provide valid data in AL1.4",
+        "Transform to FHIR AllergyIntolerance resource",
+        "Validate criticality mapping"
+      ],
+      "PassFailCriteria": "Test passes if criticality is correctly mapped from AL1.4",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_074_functional_negative",
+      "TestDescription": "Verify handling of empty/missing AL1.4 data",
+      "ExpectedOutput": "AllergyIntolerance resource created without criticality or with appropriate default",
+      "TestSteps": [
+        "Provide empty AL1.4",
+        "Transform to FHIR AllergyIntolerance resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing AL1.4 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_075_edge_positive",
+      "TestDescription": "Verify handling of edge case data in AL1.4",
+      "ExpectedOutput": "AllergyIntolerance resource with criticality handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in AL1.4",
+        "Transform to FHIR AllergyIntolerance resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_076_functional_positive",
+      "TestDescription": "Verify successful mapping of AL1.5 to AllergyIntolerance.reaction with valid data",
+      "ExpectedOutput": "AllergyIntolerance resource with reaction correctly populated from AL1.5",
+      "TestSteps": [
+        "Provide valid data in AL1.5",
+        "Transform to FHIR AllergyIntolerance resource",
+        "Validate reaction mapping"
+      ],
+      "PassFailCriteria": "Test passes if reaction is correctly mapped from AL1.5",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_077_functional_negative",
+      "TestDescription": "Verify handling of empty/missing AL1.5 data",
+      "ExpectedOutput": "AllergyIntolerance resource created without reaction or with appropriate default",
+      "TestSteps": [
+        "Provide empty AL1.5",
+        "Transform to FHIR AllergyIntolerance resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing AL1.5 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_078_edge_positive",
+      "TestDescription": "Verify handling of edge case data in AL1.5",
+      "ExpectedOutput": "AllergyIntolerance resource with reaction handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in AL1.5",
+        "Transform to FHIR AllergyIntolerance resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_079_functional_positive",
+      "TestDescription": "Verify successful mapping of PRB.3 to Condition.code with valid data",
+      "ExpectedOutput": "Condition resource with code correctly populated from PRB.3",
+      "TestSteps": [
+        "Provide valid data in PRB.3",
+        "Transform to FHIR Condition resource",
+        "Validate code mapping"
+      ],
+      "PassFailCriteria": "Test passes if code is correctly mapped from PRB.3",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_080_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PRB.3 data",
+      "ExpectedOutput": "Condition resource created without code or with appropriate default",
+      "TestSteps": [
+        "Provide empty PRB.3",
+        "Transform to FHIR Condition resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PRB.3 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_081_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PRB.3",
+      "ExpectedOutput": "Condition resource with code handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PRB.3",
+        "Transform to FHIR Condition resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_082_functional_positive",
+      "TestDescription": "Verify successful mapping of PRB.9 to Condition.clinicalStatus with valid data",
+      "ExpectedOutput": "Condition resource with clinicalStatus correctly populated from PRB.9",
+      "TestSteps": [
+        "Provide valid data in PRB.9",
+        "Transform to FHIR Condition resource",
+        "Validate clinicalStatus mapping"
+      ],
+      "PassFailCriteria": "Test passes if clinicalStatus is correctly mapped from PRB.9",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_083_functional_negative",
+      "TestDescription": "Verify handling of empty/missing PRB.9 data",
+      "ExpectedOutput": "Condition resource created without clinicalStatus or with appropriate default",
+      "TestSteps": [
+        "Provide empty PRB.9",
+        "Transform to FHIR Condition resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing PRB.9 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_084_edge_positive",
+      "TestDescription": "Verify handling of edge case data in PRB.9",
+      "ExpectedOutput": "Condition resource with clinicalStatus handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in PRB.9",
+        "Transform to FHIR Condition resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_085_functional_positive",
+      "TestDescription": "Verify successful mapping of RXO.1 to MedicationRequest.medicationCodeableConcept with valid data",
+      "ExpectedOutput": "MedicationRequest resource with medicationCodeableConcept correctly populated from RXO.1",
+      "TestSteps": [
+        "Provide valid data in RXO.1",
+        "Transform to FHIR MedicationRequest resource",
+        "Validate medicationCodeableConcept mapping"
+      ],
+      "PassFailCriteria": "Test passes if medicationCodeableConcept is correctly mapped from RXO.1",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_086_functional_negative",
+      "TestDescription": "Verify handling of empty/missing RXO.1 data",
+      "ExpectedOutput": "MedicationRequest resource created without medicationCodeableConcept or with appropriate default",
+      "TestSteps": [
+        "Provide empty RXO.1",
+        "Transform to FHIR MedicationRequest resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing RXO.1 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_087_edge_positive",
+      "TestDescription": "Verify handling of edge case data in RXO.1",
+      "ExpectedOutput": "MedicationRequest resource with medicationCodeableConcept handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in RXO.1",
+        "Transform to FHIR MedicationRequest resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_088_functional_positive",
+      "TestDescription": "Verify successful mapping of RXO.2 to MedicationRequest.dosageInstruction with valid data",
+      "ExpectedOutput": "MedicationRequest resource with dosageInstruction correctly populated from RXO.2",
+      "TestSteps": [
+        "Provide valid data in RXO.2",
+        "Transform to FHIR MedicationRequest resource",
+        "Validate dosageInstruction mapping"
+      ],
+      "PassFailCriteria": "Test passes if dosageInstruction is correctly mapped from RXO.2",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_089_functional_negative",
+      "TestDescription": "Verify handling of empty/missing RXO.2 data",
+      "ExpectedOutput": "MedicationRequest resource created without dosageInstruction or with appropriate default",
+      "TestSteps": [
+        "Provide empty RXO.2",
+        "Transform to FHIR MedicationRequest resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing RXO.2 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_090_edge_positive",
+      "TestDescription": "Verify handling of edge case data in RXO.2",
+      "ExpectedOutput": "MedicationRequest resource with dosageInstruction handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in RXO.2",
+        "Transform to FHIR MedicationRequest resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_091_functional_positive",
+      "TestDescription": "Verify successful mapping of RXO.11 to MedicationRequest.dispenseRequest with valid data",
+      "ExpectedOutput": "MedicationRequest resource with dispenseRequest correctly populated from RXO.11",
+      "TestSteps": [
+        "Provide valid data in RXO.11",
+        "Transform to FHIR MedicationRequest resource",
+        "Validate dispenseRequest mapping"
+      ],
+      "PassFailCriteria": "Test passes if dispenseRequest is correctly mapped from RXO.11",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "POSITIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_092_functional_negative",
+      "TestDescription": "Verify handling of empty/missing RXO.11 data",
+      "ExpectedOutput": "MedicationRequest resource created without dispenseRequest or with appropriate default",
+      "TestSteps": [
+        "Provide empty RXO.11",
+        "Transform to FHIR MedicationRequest resource",
+        "Validate error handling or default behavior"
+      ],
+      "PassFailCriteria": "Test passes if system handles missing RXO.11 gracefully",
+      "TestCaseType": "FUNCTIONAL",
+      "Subtype": "NEGATIVE"
+    },
+    {
+      "TestCaseID": "B_001_TC_093_edge_positive",
+      "TestDescription": "Verify handling of edge case data in RXO.11",
+      "ExpectedOutput": "MedicationRequest resource with dispenseRequest handling special characters or boundary values",
+      "TestSteps": [
+        "Provide edge case data in RXO.11",
+        "Transform to FHIR MedicationRequest resource",
+        "Validate proper encoding and mapping"
+      ],
+      "PassFailCriteria": "Test passes if edge case data is properly processed",
+      "TestCaseType": "EDGE",
+      "Subtype": "POSITIVE"
+    }
+  ],
+  "StatisticalSummary": {
+    "MappingRows": 31,
+    "UniqueAttributes": 31,
+    "TestCaseTypeBreakdown": {
+      "FUNCTIONAL": 62,
+      "EDGE": 31
+    },
+    "SubtypeBreakdown": {
+      "POSITIVE": 62,
+      "NEGATIVE": 31
+    },
+    "TotalTestCases": 93
+  }
+}
